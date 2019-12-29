@@ -6,6 +6,12 @@ export default class HomeScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      activeState: 2,
+      categs: [
+        {title: "Chef's Chocie"},
+        {title: 'Vegetarian'},
+        {title: 'calorie-conscious'},
+      ],
       items: [
         {
           count: 0,
@@ -39,6 +45,29 @@ export default class HomeScreen extends Component {
     };
   }
 
+  renderCategs = () => {
+    return this.state.categs.map(item => {
+      return (
+        <TouchableOpacity
+          onPress={() => {
+            this.setState({activeState: 1});
+          }}
+          style={{
+            width: '90%',
+            height: '15%',
+            alignSelf: 'center',
+            borderRadius: 6,
+            elevation: 6,
+            backgroundColor: 'white',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Text style={{fontSize: 20}}>{item.title}</Text>
+        </TouchableOpacity>
+      );
+    });
+  };
+
   render() {
     return (
       <View style={{justifyContent: 'space-between', flex: 1}}>
@@ -53,21 +82,25 @@ export default class HomeScreen extends Component {
           }}>
           <Text style={{color: 'white', fontSize: 20}}>MLTK</Text>
         </View>
-        <FlatList
-          style={{marginTop: '5%'}}
-          numColumns={2}
-          data={this.state.items}
-          renderItem={({item}) => (
-            <ShoppingItem
-              item={item}
-              key={item.id}
-              goTo={() => {
-                this.props.navigation.navigate('ShipmentDetails');
-              }}
-            />
-          )}
-          keyExtractor={item => item.id}
-        />
+        {this.state.activeState === 1 && (
+          <FlatList
+            style={{marginTop: '5%'}}
+            numColumns={2}
+            data={this.state.items}
+            renderItem={({item}) => (
+              <ShoppingItem
+                item={item}
+                key={item.id}
+                goTo={() => {
+                  this.props.navigation.navigate('ShipmentDetails');
+                  this.setState({activeState: 2})
+                }}
+              />
+            )}
+            keyExtractor={item => item.id}
+          />
+        )}
+        {this.state.activeState === 2 && this.renderCategs()}
         <View
           style={{
             height: '10%',

@@ -31,16 +31,22 @@ export default class ShipmentDetailsScreen extends Component {
   constructor(props) {
     super(props);
     const customer = {
-      name: 'Salak',
-      email: 'salak@kiz.com',
+      name: 'XXX',
+      email: '45645455654654',
       phone: '+9055555555',
       postAddress: 'Ege Bilmuh, Bornova, Izmir',
+      numOfPerson: 6,
     };
     this.layoutData = [
       {
         title: nameStr,
         icon: null,
         defaultValue: customer.name,
+      },
+      {
+        title: 'Number Of Person',
+        icon: null,
+        defaultValue: customer.numOfPerson,
       },
       {
         title: 'Credit Card Number:',
@@ -126,8 +132,9 @@ export default class ShipmentDetailsScreen extends Component {
   render() {
     return (
       <ImageBackground
+        // resizeMode='stretch'
         style={{width: '100%', height: '100%'}}
-        source={require('../assets/login_bg.jpg')}>
+        source={require('../assets/3230930.jpg')}>
         <ScrollView
           contentContainerStyle={{}}
           style={{
